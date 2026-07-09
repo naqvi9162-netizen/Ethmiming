@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>EthMining · Trust Wallet DApp</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: system-ui, sans-serif;
+            background: #0b0e14;
+            color: #f0f4fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 16px;
+        }
+        .container {
+            max-width: 420px;
+            width: 100%;
+            background: #131a24;
+            padding: 24px 20px 32px;
+            border-radius: 32px;
+            border: 1px solid #2a3a4a;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #f0b90b;
+        }
+        .logo span { color: #f0f4fa; }
+        .wallet-card {
+            background: #1a2330;
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin: 20px 0;
+            border: 1px solid #2a3a4a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .wallet-card .addr {
+            font-size: 14px;
+            color: #9aaec9;
+        }
+        .badge {
+            background: #0ecb81;
+            color: #000;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+        }
+        .btn {
+            background: #f0b90b;
+            color: #0b0e14;
+            border: none;
+            padding: 14px 0;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .btn:hover { background: #d4a30a; }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #2a3a4a;
+            color: #f0f4fa;
+        }
+        .btn-secondary:hover { background: #1a2330; }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 16px 0;
+        }
+        .stat-box {
+            background: #1a2330;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #2a3a4a;
+        }
+        .stat-box .num { font-size: 20px; font-weight: 700; }
+        .stat-box .label { font-size: 11px; color: #6a7f9a; margin-top: 4px; }
+        .gold { color: #f0b90b; }
+        .green { color: #0ecb81; }
+        .vip-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin: 16px 0;
+        }
+        .vip-card {
+            background: #1a2330;
+            border-radius: 12px;
+            padding: 12px 4px;
+            text-align: center;
+            border: 1px solid #2a3a4a;
+        }
+        .vip-card.active { border-color: #f0b90b; background: #1f2a3a; }
+        .vip-card .name { font-weight: 600; font-size: 13px; color: #9aaec9; }
+        .vip-card .rate { font-size: 18px; font-weight: 700; }
+        .vip-card .days { font-size: 12px; color: #6a7f9a; }
+        .status-msg { color: #0ecb81; margin-top: 12px; font-size: 14px; text-align: center; }
+        .footer { font-size: 11px; color: #6a7f9a; text-align: center; margin-top: 20px; padding-top: 12px; border-top: 1px solid #2a3a4a; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        ⚡ Eth<span>Mining</span>
+    </div>
+
+    <div class="wallet-card">
+        <span class="addr">🔗 Not Connected</span>
+        <span class="badge">BSC</span>
+    </div>
+
+    <button class="btn" id="connectBtn">
+        <span>🔗</span> Connect Trust Wallet
+    </button>
+
+    <div id="statusMsg" class="status-msg"></div>
+
+    <div class="grid-2" style="margin-top:20px;">
+        <div class="stat-box"><div class="num gold">1%</div><div class="label">Daily Yield</div></div>
+        <div class="stat-box"><div class="num">319K</div><div class="label">Hashrate (PH/s)</div></div>
+        <div class="stat-box"><div class="num green">45.9K</div><div class="label">Participants</div></div>
+        <div class="stat-box"><div class="num">$0.00</div><div class="label">Balance (USDT)</div></div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; margin: 12px 0 6px;">
+        <strong>VIP Mining Plans</strong>
+        <span style="color:#f0b90b; font-size:13px;">View All →</span>
+    </div>
+
+    <div class="vip-grid">
+        <div class="vip-card active"><div class="name gold">VIP 1</div><div class="rate">2%</div><div class="days">7 days</div></div>
+        <div class="vip-card"><div class="name">VIP 2</div><div class="rate">3%</div><div class="days">14 days</div></div>
+        <div class="vip-card"><div class="name">VIP 3</div><div class="rate">5%</div><div class="days">30 days</div></div>
+    </div>
+
+    <div class="grid-2">
+        <button class="btn" id="depositBtn" disabled>💵 Deposit</button>
+        <button class="btn btn-secondary" id="claimBtn" disabled>💰 Claim</button>
+    </div>
+
+    <div class="footer">🛡️ Smart Contract Audited · Decentralized</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.7.0/dist/web3.min.js">
+</script>
+
+<script>
+    let web3, userAddress;
+
+    const connectBtn = document.getElementById('connectBtn');
+    const statusMsg = document.getElementById('statusMsg');
+    const walletCard = document.querySelector('.wallet-card .addr');
+    const depositBtn = document.getElementById('depositBtn');
+    const claimBtn = document.getElementById('claimBtn');
+
+    connectBtn.addEventListener('click', async function() {
+        try {
+            statusMsg.textContent = '🔄 Connecting...';
+
+            const provider = new WalletConnectProvider({
+                rpc: { 56: 'https://bsc-dataseed.binance.org/' },
+                chainId: 56,
+                qrcodeModalOptions: { mobileLinks: ['trust'] }
+            });
+
+            await provider.enable();
+            web3 = new Web3(provider);
+            const accounts = await web3.eth.getAccounts();
+            userAddress = accounts[0];
+
+            walletCard.innerHTML = `✅ ${userAddress.slice(0,6)}...${userAddress.slice(-4)}`;
+            statusMsg.textContent = '✅ Connected to Trust Wallet (BSC)';
+            connectBtn.textContent = '✅ Connected';
+            connectBtn.style.background = '#0ecb81';
+            connectBtn.disabled = true;
+
+            depositBtn.disabled = false;
+            claimBtn.disabled = false;
+
+        } catch (err) {
+            statusMsg.textContent = '❌ Connection failed: ' + err.message;
+        }
+    });
+
+    depositBtn.addEventListener('click', function() {
+        alert('💵 Deposit function will be added soon.\nAddress: ' + userAddress);
+    });
+
+    claimBtn.addEventListener('click', function() {
+        alert('💰 Claim function will be added soon.');
+    });
+</script>
+
+</body>
+</html>
